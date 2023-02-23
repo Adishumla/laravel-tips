@@ -29,8 +29,13 @@ Route::post('login', LoginController::class);
 
 Route::get('/login', function () {
     return view('index');
-})->name('login');
+})->name('login')->middleware('guest');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
+
+Route::get('/logout', function () {
+    auth()->logout();
+    return redirect()->intended('/login');
+});

@@ -12,6 +12,6 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('dashboard', ['user' => Auth::user()]);
+        return redirect()->intended('/dashboard');
     }
 }

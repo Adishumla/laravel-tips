@@ -1,6 +1,14 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CreateRestaurantController;
+use App\Http\Controllers\PostRestaurantController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PriceController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +22,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('login')->middleware('guest');
+//login
+Route::post('login', LoginController::class);
+
+Route::get('/login', function () {
+    return view('index');
+})->name('login');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth');

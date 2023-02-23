@@ -3,7 +3,7 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\CreateRestaurantController;
+use App\Http\Controllers\CreateResturantController;
 use App\Http\Controllers\PostRestaurantController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogoutController;
@@ -39,3 +39,5 @@ Route::get('/logout', function () {
     auth()->logout();
     return redirect()->intended('/login');
 });
+
+Route::post('/resturant', CreateResturantController::class)->middleware('auth');

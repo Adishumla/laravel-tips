@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Price extends Model
 {
     use HasFactory;
+
+    public function resturants()
+    {
+        return $this->hasMany(Resturant::class);
+    }
 }

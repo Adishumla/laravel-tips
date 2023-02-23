@@ -11,22 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resturants', function (Blueprint $table) {
-            $table->id();
-            $table->integer('category_id');
-            $table->integer('user_id');
-            $table->integer('price_id');
-            $table->string('city');
-            $table->string('name');
+        Schema::table('resturants', function (Blueprint $table) {
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('resturants');
+        Schema::table('resturants', function (Blueprint $table) {
+            //
+        });
     }
 };

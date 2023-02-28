@@ -18,6 +18,7 @@ class CreateResturantController extends Controller
             'price_id' => ['required', 'integer'],
             'city' => 'required',
             'name' => 'required',
+            'description' => '',
         ]);
         // this makes sure that the data is an integer and not a string
         $category_id = intval($data['category_id']);
@@ -32,6 +33,7 @@ class CreateResturantController extends Controller
             'price_id' => $price_id,
             'city' => $data['city'],
             'name' => $data['name'],
+            'description' => $data['description'],
         ]);
 
         return redirect()->intended('/dashboard');

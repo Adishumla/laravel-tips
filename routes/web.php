@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CreateResturantController;
+use App\Http\Controllers\LikesController;
 use App\Http\Controllers\PostRestaurantController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogoutController;
@@ -23,13 +24,13 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('index');
-})->name('login')->middleware('guest');
+})->name('login');
 //login
 Route::post('login', LoginController::class);
 
 Route::get('/login', function () {
     return view('index');
-})->name('login')->middleware('guest');
+})->name('login');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -39,5 +40,7 @@ Route::get('/logout', function () {
     auth()->logout();
     return redirect()->intended('/login');
 });
+
+Route::post('/like', LikesController::class)->middleware('auth');
 
 Route::post('/resturant', CreateResturantController::class)->middleware('auth');

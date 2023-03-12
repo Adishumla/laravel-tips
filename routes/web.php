@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CreateResturantController;
 use App\Http\Controllers\LikesController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PostRestaurantController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogoutController;
@@ -40,6 +41,12 @@ Route::get('/logout', function () {
     auth()->logout();
     return redirect()->intended('/login');
 });
+/* register */
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
+
+Route::post('/register', RegisterController::class);
 
 Route::post('/like', LikesController::class)->middleware('auth');
 

@@ -17,5 +17,6 @@ class Resturant extends Model
         'city',
         'name',
         'description',
+        'likes',
     ];
 }

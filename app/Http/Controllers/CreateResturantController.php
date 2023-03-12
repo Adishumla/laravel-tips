@@ -34,6 +34,7 @@ class CreateResturantController extends Controller
             'city' => $data['city'],
             'name' => $data['name'],
             'description' => $data['description'],
+            'likes' => 0,
         ]);
 
         return redirect()->intended('/dashboard');

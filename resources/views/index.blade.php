@@ -32,28 +32,30 @@
         </div>
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 w-full">Login</button>
-    </form>
+        <button type="button" class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 w-full mt-1" onclick="window.location.href='/register'">Register</button>
+</form>
 </div>
 @endif
 @include('errors')
 <section class="flex flex-wrap justify-center">
     @foreach ($resturants as $resturant)
     {{-- limit 4 divs --}}
-      <div class="bg-white border border-5 shadow-lg rounded-md p-4 m-2 w-64 flex flex-col justify-between">
+      <div class="bg-white border border-5 shadow-lg rounded-md p-4 m-2 w-96 h-auto">
         @foreach ($users as $user)
           @if ($resturant->user_id == $user->id)
-            <h3 class="text-2xl font-bold mb-2">{{ $user->name }}</h3>
+            <h6 class="text-sm font-thin mb-2">{{ $user->name }}</h6>
           @endif
         @endforeach
+
+        <h4 class="text-2xl font-bold mb-2">{{ $resturant->name }}</h4>
         @foreach ($categories as $category)
           @if ($resturant->category_id == $category->id)
-            <h2 class="text-xl font-semibold mb-2">{{ $category->name }}</h2>
+            <h5 class="text-lg font-semibold mb-2">{{ $category->name }}</h5>
           @endif
         @endforeach
-        <h4 class="text-lg font-semibold mb-2">{{ $resturant->name }}</h4>
-        <h5 class="text-lg font-semibold mb-2">{{ $resturant->city }}</h5>
-        <h5 class="text-lg font-semibold mb-2">{{ $resturant->description }}</h5>
-        <h5 class="text-lg font-semibold mb-2">{{ $resturant->likes }}</h5>
+        <h5 class="text-lg font-light mb-2">{{ $resturant->city }}</h5>
+        <p class="text-lg font-normal mb-2 overflow-ellipsis overflow-hidden" style="word-wrap: break-word;">{{ Str::limit($resturant->description, 100) }}</p>
+                <h5 class="text-lg font-semibold mb-2">{{ $resturant->likes }}</h5>
         <form action="/like" method="post">
             @if(Auth::check())
             <input type="hidden" name="user_id" value={{ $user_id }}>

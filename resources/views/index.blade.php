@@ -40,7 +40,7 @@
 <section class="flex flex-wrap justify-center">
     @foreach ($resturants as $resturant)
     {{-- limit 4 divs --}}
-      <div class="bg-white border border-5 shadow-lg rounded-md p-4 m-2 w-96 h-auto">
+      <div class="bg-white border border-5 shadow-lg rounded-md p-4 m-2 w-96 h-auto hover:shadow-2xl transition duration-500 ease-in-out">
         @foreach ($users as $user)
           @if ($resturant->user_id == $user->id)
             <h6 class="text-sm font-thin mb-2">{{ $user->name }}</h6>

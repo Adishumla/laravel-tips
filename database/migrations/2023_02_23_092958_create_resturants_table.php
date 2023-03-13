@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('price_id');
             $table->string('city');
             $table->string('name');
+            $table->integer('description_id');
+            $table->integer('likes');
             $table->timestamps();
         });
     }

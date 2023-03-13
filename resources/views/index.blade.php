@@ -15,6 +15,7 @@
     $prices = DB::table("prices")->get();
     $users = DB::table("users")->get();
     $likes = DB::table("likes")->get();
+    $descriptions = DB::table("descriptions")->get();
     ?>
 @if (Auth::check())
 {{ $user_id = Auth::user()->id;}}
@@ -38,6 +39,8 @@
 </div>
 @endif
 @include('errors')
+{{-- filter based on category --}}
+
 <section class="flex flex-wrap justify-center">
     @foreach ($resturants as $resturant)
     {{-- limit 4 divs --}}
@@ -55,7 +58,11 @@
           @endif
         @endforeach
         <h5 class="text-lg font-light mb-2">{{ $resturant->city }}</h5>
-        <p class="text-lg font-normal mb-2 overflow-ellipsis overflow-hidden" style="word-wrap: break-word;">{{ Str::limit($resturant->description, 100) }}</p>
+        @foreach ($descriptions as $description)
+        @if ($resturant->description_id == $description->id)
+        <p class="text-lg font-normal mb-2 overflow-ellipsis overflow-hidden" style="word-wrap: break-word;">{{ Str::limit($description->description, 100) }}</p>
+        @endif
+        @endforeach
                 <h5 class="text-lg font-semibold mb-2">{{ $resturant->likes }}</h5>
         <form action="/like" method="post">
             @if(Auth::check())
@@ -65,7 +72,7 @@
             @csrf
             @if(Auth::check())
             @if($user_id && $likes->where('user_id', $user_id)->where('resturant_id', $resturant->id)->count() > 0)
-            <button type="submit" disabled class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 w-full">Liked</button>
+            <button type="submit" disabled class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-700 w-full">Liked</button>
             @else
             <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 w-full">Like</button>
             @endif

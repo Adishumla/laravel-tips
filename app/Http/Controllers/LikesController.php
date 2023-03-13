@@ -17,14 +17,18 @@ class LikesController extends Controller
             'user_id' => ['required', 'integer'],
             'resturant_id' => ['required', 'integer'],
         ]);
-        // this makes sure that the data is an integer and not a string
+        /* check if user has liked this post before */
         $user_id = intval($data['user_id']);
         $resturant_id = intval($data['resturant_id']);
 
-        $likes = Like::create([
-            'user_id' => $user_id,
-            'resturant_id' => $resturant_id,
-        ]);
+        if (Like::where('user_id', $user_id)->where('resturant_id', $resturant_id)->first()) {
+            return redirect()->intended('/');
+        } else {
+            $likes = Like::create([
+                'user_id' => $user_id,
+                'resturant_id' => $resturant_id,
+            ]);
+        }
 
         Resturant::where('id', $resturant_id)->increment('likes');
         return redirect()->intended('/');

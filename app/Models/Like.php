@@ -18,4 +18,9 @@ class Like extends Model
     {
         return $this->belongsToMany(Resturant::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

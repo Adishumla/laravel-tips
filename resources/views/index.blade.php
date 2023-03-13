@@ -14,6 +14,7 @@
     $categories = DB::table("category")->get();
     $prices = DB::table("prices")->get();
     $users = DB::table("users")->get();
+    $likes = DB::table("likes")->get();
     ?>
 @if (Auth::check())
 {{ $user_id = Auth::user()->id;}}
@@ -62,9 +63,13 @@
             @endif
             <input type="hidden" name="resturant_id" value={{ $resturant->id }}>
             @csrf
-            <button {{-- disabled --}} type="submit" class="inline-block py-2 px-4 border border-gray-400 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200">
-                like
-              </button>
+            @if(Auth::check())
+            @if($user_id && $likes->where('user_id', $user_id)->where('resturant_id', $resturant->id)->count() > 0)
+            <button type="submit" disabled class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 w-full">Liked</button>
+            @else
+            <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 w-full">Like</button>
+            @endif
+            @endif
         </form>
         <br>
       </div>

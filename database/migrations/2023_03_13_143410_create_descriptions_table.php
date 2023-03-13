@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('descriptions', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('description');
+            $table->integer('resturant_id');
+        });
     }
 
     /**
@@ -19,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('resturants', function (Blueprint $table) {
-            $table->dropColumn('description');
-        });
+        Schema::dropIfExists('descriptions');
     }
 };

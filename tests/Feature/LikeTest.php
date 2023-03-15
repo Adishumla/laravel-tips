@@ -28,6 +28,8 @@ class LikeTest extends TestCase
             'user_id' => $user->id,
             'resturant_id' => 1,
         ]);
+
+        $this->assertEquals(200, $this->status());
     }
 
     public function already_liked_test(): void

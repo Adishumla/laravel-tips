@@ -14,11 +14,11 @@
 This is an webapp made by Adam and Emma where you as a user can post your best resturant tips, view others tips and even vote for the ones you think are the best ones. Amazing! You will never have to think about where you should eat again, just look at the tips and you will for sure know where to eat.
 
 # Instructions:
-1 - Clone down the repo
-2 - npm install
-3 - composer install
-4 - run npm run dev
-5 - php artisan serve to run the project
+1. Clone down the repo
+2. npm install
+3. composer install
+4. run npm run dev
+5. php artisan serve to run the project
 
 # Code review:
 

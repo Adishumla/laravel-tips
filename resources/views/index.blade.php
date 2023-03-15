@@ -5,20 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Document</title>
+    <title>index</title>
 </head>
 <body class="">
     <?php
     $user = Auth::user();
-    $resturants = DB::table("resturants")->get();
+    $resturants = DB::table("resturants");
+
+    // Check if the filter form has been submitted
+    if (request()->has("category")) {
+        $categoryId = request()->input("category");
+        // Filter the restaurants based on the selected category id
+        if ($categoryId != "all") {
+            $resturants = $resturants->where("category_id", $categoryId);
+        }
+    }
+
+    $resturants = $resturants->get();
     $categories = DB::table("category")->get();
     $prices = DB::table("prices")->get();
     $users = DB::table("users")->get();
     $likes = DB::table("likes")->get();
     $descriptions = DB::table("descriptions")->get();
+    $user_id = Auth::id();
     ?>
 @if (Auth::check())
-{{ $user_id = Auth::user()->id;}}
 <a href="/dashboard" class="inline-block py-2 px-4 border border-gray-400 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200">Dashboard</a>
 <a href="/logout" class="inline-block py-2 px-4 border border-gray-400 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200">Logout</a>
 @else
@@ -40,10 +51,20 @@
 @endif
 @include('errors')
 {{-- filter based on category --}}
+<form method="get" action="">
+    <label for="category">Filter by category:</label>
+    <select name="category" id="category">
+        <option value="all">All</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+        @endforeach
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
 
 <section class="flex flex-wrap justify-center">
     @foreach ($resturants as $resturant)
-    {{-- limit 4 divs --}}
       <div class="bg-white border border-5 shadow-lg rounded-md p-4 m-2 w-96 h-auto hover:shadow-2xl transition duration-500 ease-in-out">
         @foreach ($users as $user)
           @if ($resturant->user_id == $user->id)
@@ -63,7 +84,7 @@
         <p class="text-lg font-normal mb-2 overflow-ellipsis overflow-hidden" style="word-wrap: break-word;">{{ Str::limit($description->description, 100) }}</p>
         @endif
         @endforeach
-                <h5 class="text-lg font-semibold mb-2">{{ $resturant->likes }}</h5>
+                <h5 class="text-lg font-semibold mb-2">Likes: {{ $resturant->likes }}</h5>
         <form action="/like" method="post">
             @if(Auth::check())
             <input type="hidden" name="user_id" value={{ $user_id }}>

@@ -61,7 +61,6 @@ $user_id = Auth::user()->id;
         </div>
     </form>
 
-
 @vite('resources/js/app.js')
 </body>
 </html>

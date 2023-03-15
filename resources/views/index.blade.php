@@ -71,7 +71,11 @@
             <h6 class="text-sm font-thin mb-2">{{ $user->name }}</h6>
           @endif
         @endforeach
-
+        @foreach ($prices as $price)
+          @if ($resturant->price_id == $price->id)
+            <h6 class="text-sm font-thin mb-2">{{ $price->price }}</h6>
+          @endif
+        @endforeach
         <h4 class="text-2xl font-bold mb-2">{{ $resturant->name }}</h4>
         @foreach ($categories as $category)
           @if ($resturant->category_id == $category->id)
